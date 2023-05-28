@@ -389,18 +389,23 @@ class LinkedBST(AbstractCollection):
         rand_tree = LinkedBST()
         bal_tree = LinkedBST()
 
+        print("building linear tree...")
         for i, word in enumerate(lst):
             lin_tree.add(word)
-            bal_tree.add(word)
             if i % 5000 == 0:
                 print(f"{i}\twords added")
 
-        bal_tree.rebalance()
-
         rand_lst = lst[:]
         shuffle(rand_lst)
+        print("building random tree...")
         for word in rand_lst:
+            bal_tree.add(word)
             rand_tree.add(word)
+            if i % 5000 == 0:
+                print(f"{i}\twords added")
+
+        print("balancing tree...")
+        bal_tree.rebalance()
 
         timers = {"list": {"time": 0.0, "link": lst},
                   "linear_tree": {"time": 0.0, "link": lin_tree},
@@ -415,7 +420,7 @@ class LinkedBST(AbstractCollection):
                 _ = word in structure
                 value["time"] += time() - start
 
-        print("Time of search of 10000 different words in dictionary of 50000")
+        print("/nTime of search of 10000 different words in dictionary of 50000")
         for name, element in timers.items():
             sec = element["time"]
             print(f"{name} search time is:\t{sec}")
